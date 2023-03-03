@@ -1,0 +1,157 @@
+---
+title: "Lesson 1: An Introduction to R (and RStudio)"
+author: "M. Chiovaro"
+output: html_document
+---
+
+Welcome! This R markdown file will guide us through our first lesson on R and it's utility in quantitative social science. You should now have this file open in RStudio. This is intended to be a follow-along guide for our first lesson. We will be covering (1) the basics of the RStudio environment, (2) how to set up your workspace, (3) basic arithmetic and working with variables, (4) working with datasets, and (5) visualizing data.
+
+***
+
+# 1. RStudio
+
+Let's first address what RStudio is and go through where you can find things. RStudio is an "integrated development environment", or an interface for working with R. R is a software program, while RStudio is the window that you see right now. In RStudio, you will typically see four window panes:
+
+- (1) Source window: This is the window where you are reading this file. It is where we can work on scripts. These scripts can be saved and shared with others. 
+- (2) Console window: Below the source window is the Console. This is where you will see the output or results of your scripts, including errors. You can also write code directly into this window, but it will not be saved like you can in a script. 
+- (3) Global environment window: In the top right corner is where you will find a list of the values, objects, and data frames that are currently loaded. 
+- (4) Files, plots, packages, help, and viewer: This is a multi-use panel that can help us navigate through our files, view plots that we generate, install packages, and many other things. We will learn more about this panel as we go through this course.
+
+***
+
+# 2. Setting up
+
+Before we begin working with our data, we need to take a look at our workspace. To assure that we do not accidentally use dataframes or variables from a previous project, we first need to  clear our workspace. In other words, we will clear the "Global Environment" window in the upper-right corner of your RStudio window. To clear your workspace, type `rm(list=ls())` into the Console.
+
+We will also take this time to install and load any packages that we may need. A package is a bundle of code that allow us to manipulate, visualize, and analyze our data in various ways. To install a package, type `install.packages("X")` into the Console, replacing `X` with the name of the package. Do this for the package "datasets".
+
+What you see directly below this paragraph is called a code "chunk." Code chunks always start and end with three ``` and are highlighted in gray. This chunk contains the R code that we just discussed above. I've added chunks for every line of code that we will be going through. If you ever get confused during our lesson, you can refer to the associated code chunk to regain your place.
+
+```{r set-up, warning=FALSE}
+
+# clear the workspace
+rm(list=ls())
+
+# install the packages we need
+install.packages("datasets")
+
+# read in libraries we'll need
+library(datasets)
+
+```
+
+***
+
+# 3. Arithmetic and Variables
+
+***
+
+R can be used for a variety of things, but we will start with basic arithmetic. R can be used just like a calculator! Type `2 + 4` into your Console. In this case, we entered the numbers directly, however, we more commonly have numbers saved as variables. Let's assign two variables, a and b. Type `a = 2` and then `b = 4`. You can see in the Global Environment window that there are now two values, a and b. Let's try adding them. Type `a + b`. We can also assign this equation to a new value of it's own, let's call it c. Type `c = a+b` and then look in the Global Environment window again. We now have c with a value of 5.
+
+```{r arithmetic}
+
+# try adding two numbers
+2 + 4
+
+# assign two variables and add them
+a = 2
+b = 4
+a + b
+
+# create a new variable by adding the two previous variables
+c <- a + b
+
+```
+
+These variables that we created hold a single value. However, there are instances where we want a variable to hold multiple values in a "list". Let's make a new list called "wheels" and assign it with our a and b values. Type `wheels <- c(a, b)`. We can also do this with characters (i.e., words/sentences). Type `vehicle <- c("bicycle", "car")`. In this example, you have information about the number of wheels on two different vehicles, but they are held in separate objects. We can combine them into a single object, called a dataframe. To do so, type `vehicle_data <- data.frame(vehicle, wheels)`. To view it, either click on "vehicle_data" in the Global Environment window, or type `View(vehicle_data)`.
+
+```{r variables}
+
+# create a list of numbers
+wheels <- c(a, b)
+
+# create a list of vehicle names 
+vehicle <- c("bicycle", "car") 
+
+# combine the lists to create a dataframe
+vehicle_data <- data.frame(vehicle, wheels)
+
+# view the data
+View(vehicle_data)
+
+```
+
+While these functions are useful, it's more common that we are working with a dataset that has multiple columns and rows. Next, we will practice viewing and subsetting a larger dataset in R.
+
+***
+
+# 4. Working with data frames
+
+***
+
+For this lesson, we'll use a practice dataset that's included with R called `iris`. This dataset contains information about 3 species of Iris flowers and the lengths and widths of their petals and sepals. First let's load the data. To do so, we will assign it to a dataframe called "data", similar to how we assigned the values of a and b. In the Console, type `data <- as.data.frame(iris)`. 
+
+If you look in the Global Environment window, you will see that "data" now contains 150 observations (i.e., rows) of 5 variables (i.e., columns). Press the arrow to the right of "data" to see a preview of what those variables look like. You can also click on "data" and the dataframe will appear in the Source window. You can also type `head(data)` into the Console to see the first five rows of the dataset. 
+
+We can inspect some general descriptive information about the data by typing `summary(data)`. R will tell us the minimums, maximums, means, and other information about the different columns.
+
+```{r exploring-data}
+
+# load the data
+data <- as.data.frame(iris)
+
+# view the first five rows of the data
+head(data)
+
+# Look at some summary statistics about the data
+summary(data)
+
+```
+
+Let's say that we were interested in one species of Iris called Setosa. We can create a subset of the data by using the "filter" function. Type `setosa <- filter(data, Species == "setosa")`.
+
+We can also subset or "filter" our data by values within a variable. Let's say that we were next interested in flowers which had petal lengths greater than 5. Type `petal.length.5 <- filter(data, Petal.Length > 5)`. Check out the `petal.length.5` dataset in the Global Environment.
+
+R also allows us to filter for multiple conditions at a time. Say we were interested specifically in the "virginica" flowers which had petal lengths less than 5. Type `virginica_petal5 <- filter(iris, Species == "virginica", Petal.Length < 5)`.
+
+```{r filtering-data}
+
+# filter for the species setosa
+setosa <- filter(data, Species=="setosa")
+
+# filter for petal.length greater than 5
+petal.length.5 <- filter(data, Petal.Length > 5)
+
+# filter for virginica species with petal lengths less than 5
+virginica_petal5 <- filter(data, Species == "virginica", Petal.Length < 5)
+
+```
+
+We can also create new variables. Let's say that we want to consider anything with a petal length greater than 5 as a "large" flower, and everything else as a "small" flower. We can use an "ifelse()" function. The way the function works is to first include the condition (i.e., Petal.Length > 5), then the result we want if it meets the condition (i.e., "Large"), and finally the value we want if it does not meet that condition ("Small"). All together, we would type `data$size <- ifelse(data$Petal.Length > 5, "Large", "Small")`. The "$" after the dataframe name signifies that we are instructing R to work on a specific column. In this case, since "size" does not yet exist, R will create it for us!
+
+```{r creating-variables}
+
+# create the size variable
+data$size <- ifelse(data$Petal.Length > 5, "Large", "Small")
+
+```
+
+Let's take a second to talk about naming conventions. When you were running these lines of code in the Console, you were entering a set of conditions and applying them to a dataframe (e.g., "petal.length.5") or a variable (e.g., "size"). It's important that we use names that give a good indication of the data they are holding. Just something to keep in mind as we continue on in this course.
+
+# 5. Visualizing data
+
+It's always a good idea to visualize your data to understand how it's structured. Let's go over some quick ways to plot your data. First, let's look at a scatter plot of our two variables that are measuring length. Type `plot(data$Petal.Length, data$Sepal.Length)`. We can see that there is an apparent jump in petal length from 2 to 3, where no observations fell in between. We can follow up on this insight by viewing the distribution of the `Petal.Length` variable using a histogram. Type `hist(data$Petal.Length)`. Here we can see that jump in length again, and can identify that the most frequent petal length in the dataset is 1.
+
+```{r visualizing-data}
+
+# make a scatter plot
+plot(data$Petal.Length, data$Sepal.Length)
+
+# make a histogram
+hist(data$Petal.Length)
+
+```
+
+# End of lesson note
+
+Congratulations! You've made it through our first R lesson. As mentioned above, this document is meant to be a reference that you can come back to. I'd suggest re-doing this lesson once or twice more before we begin with lesson 2. Happy coding!
