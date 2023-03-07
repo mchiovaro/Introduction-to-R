@@ -4,7 +4,7 @@ author: "M. Chiovaro"
 output: html_document
 ---
 
-Welcome! This R markdown file will guide us through our first lesson on R and it's utility in quantitative social science. You should now have this file open in RStudio. This is intended to be a follow-along guide for our first lesson. We will be covering (1) the basics of the RStudio environment, (2) how to set up your workspace, (3) basic arithmetic and working with variables, (4) working with datasets, and (5) visualizing data.
+Welcome! This R markdown file will guide us through our first lesson on R and its utility in quantitative social science. You should now have this file open in RStudio. This is intended to be a follow-along guide for our first lesson. We will be covering (1) the basics of the RStudio environment, (2) how to set up your workspace, (3) basic arithmetic and working with variables, (4) working with datasets, and (5) visualizing data.
 
 ***
 
@@ -21,7 +21,7 @@ Let's first address what RStudio is and go through where you can find things. RS
 
 # 2. Setting up
 
-Before we begin working with our data, we need to take a look at our workspace. To assure that we do not accidentally use dataframes or variables from a previous project, we first need to  clear our workspace. In other words, we will clear the "Global Environment" window in the upper-right corner of your RStudio window. To clear your workspace, type `rm(list=ls())` into the Console.
+Before we begin working with our data, we need to take a look at our workspace. To assure that we do not accidentally use dataframes or variables from a previous project, we first need to clear our workspace. In other words, we will clear the "Global Environment" window in the upper-right corner of your RStudio window. To clear your workspace, type `rm(list=ls())` into the Console.
 
 We will also take this time to install and load any packages that we may need. A package is a bundle of code that allow us to manipulate, visualize, and analyze our data in various ways. To install a package, type `install.packages("X")` into the Console, replacing `X` with the name of the package. Do this for the package "datasets".
 
@@ -46,7 +46,7 @@ library(datasets)
 
 ***
 
-R can be used for a variety of things, but we will start with basic arithmetic. R can be used just like a calculator! Type `2 + 4` into your Console. In this case, we entered the numbers directly, however, we more commonly have numbers saved as variables. Let's assign two variables, a and b. Type `a = 2` and then `b = 4`. You can see in the Global Environment window that there are now two values, a and b. Let's try adding them. Type `a + b`. We can also assign this equation to a new value of it's own, let's call it c. Type `c = a+b` and then look in the Global Environment window again. We now have c with a value of 5.
+R can be used for a variety of things, but we will start with basic arithmetic. R can be used just like a calculator! Type `2 + 4` into your Console. In this case, we entered the numbers directly, however, we more commonly have numbers saved as variables. Let's assign two variables, a and b. Type `a = 2` and then `b = 4`. You can see in the Global Environment window that there are now two values, a and b. Let's try adding them. Type `a + b`. We can also assign this equation to a new value of its own, let's call it c. Type `c = a+b` and then look in the Global Environment window again. We now have c with a value of 5.
 
 ```{r arithmetic}
 
@@ -136,11 +136,11 @@ data$size <- ifelse(data$Petal.Length > 5, "Large", "Small")
 
 ```
 
-Let's take a second to talk about naming conventions. When you were running these lines of code in the Console, you were entering a set of conditions and applying them to a dataframe (e.g., "petal.length.5") or a variable (e.g., "size"). It's important that we use names that give a good indication of the data they are holding. Just something to keep in mind as we continue on in this course.
+Let's take a second to talk about naming conventions. When you were running these lines of code in the Console, you were entering a set of conditions and applying them to a dataframe (e.g., "petal.length.5") or a variable (e.g., "size"). It's important that we use names that give a good indication of the data they are holding. Just something to keep in mind as we continue this course.
 
 # 5. Visualizing data
 
-It's always a good idea to visualize your data to understand how it's structured. Let's go over some quick ways to plot your data. First, let's look at a scatter plot of our two variables that are measuring length. Type `plot(data$Petal.Length, data$Sepal.Length)`. We can see that there is an apparent jump in petal length from 2 to 3, where no observations fell in between. We can follow up on this insight by viewing the distribution of the `Petal.Length` variable using a histogram. Type `hist(data$Petal.Length)`. Here we can see that jump in length again, and can identify that the most frequent petal length in the dataset is 1.
+It's always a good idea to visualize your data to understand how it's structured. Let's go over some quick ways to plot your data. First, let's look at a scatter plot of our two variables that are measuring length. Type `plot(data$Petal.Length, data$Sepal.Length)`. We can see that there is an apparent jump in petal length from 2 to 3, where no observations fell in between. We can follow up on this insight by viewing the distribution of the `Petal.Length` variable using a histogram. Type `hist(data$Petal.Length)`. Here we can see a jump in length again and can identify that the most frequent petal length in the dataset is 1.
 
 ```{r visualizing-data}
 
