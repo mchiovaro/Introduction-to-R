@@ -1,6 +1,6 @@
 # Introduction to R
+
 Created by: Megan Chiovaro
-Last updated: 03/07/2023
 
 ## Description
 
